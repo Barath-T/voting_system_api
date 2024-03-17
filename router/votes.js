@@ -3,7 +3,16 @@ import Votes from "../models/Votes.js";
 
 const votesRouter = express.Router();
 
-votesRouter.get("/", (_req, res) => res.send("hello"));
+votesRouter.get("/voted", async (_req, res) => {
+    const curr = await Votes.findOne({});
+    res.status(200).send(curr.voted);
+
+});
+votesRouter.get("/candidates", async (_req, res) => {
+    const curr = await Votes.findOne({});
+    res.status(200).send(curr.candidates);
+
+});
 votesRouter.post("/addvote", async (req, res) => {
     // console.log(req.body);
     const { voted_by, voted_for } = req.body;

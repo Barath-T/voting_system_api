@@ -8,11 +8,15 @@ import votesRouter from "./router/votes.js";
 import usersRouter from "./router/users.js";
 import loginRouter from "./router/login.js";
 
+import "express-async-errors";
+
 const app = express();
+app.use(
+    cors({ origin: '*' })
+);
 
 dotenv.config();
 app.use(express.json());
-app.use(cors());
 
 const _mongoose = mongoose.set("strictQuery", false);
 _mongoose
@@ -20,8 +24,8 @@ _mongoose
     .then(() => console.log("DB connected"))
     .catch((err) => console.log(err));
 
-app.use("/votes", votesRouter);
-app.use("/register", usersRouter);
-app.use("/login", loginRouter);
+app.use("/api/votes", votesRouter);
+app.use("/api/register", usersRouter);
+app.use("/api/login", loginRouter);
 
 export default app;
